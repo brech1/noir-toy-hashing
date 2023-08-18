@@ -13,24 +13,15 @@ fn calculate_hash(num: u32) -> u32 {
     println(num);
 
     let mut hash_value: u32 = 0x811C9DC5;
+    let num_bytes = (num as Field).to_be_bytes(4);
 
-    let mut num_bytes: [u8;4] = [0; 4];
     for i in 0..4 {
-        num_bytes[i] = (num >> (i * 8)) as u8;
-    }
-
-    println("Input bytes");
-    println(num_bytes);
-
-    for byte in num_bytes {
         let product = hash_value * PRIME;
-
-        // TODO: Implement modulo op
 
         println("Product");
         println(product);
 
-        hash_value = product ^ byte as u32;
+        hash_value = product ^ num_bytes[i] as u32;
     }
     
     println("Final hash");
